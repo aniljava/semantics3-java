@@ -14,7 +14,7 @@ public class ProductsRequest extends APIRequest {
 		super(api_key, api_secret);
 	}
 
-	public Iterable<Map<String, Object>> getProducts() {
+	public List<Map<String, Object>> getProducts() {
 		if (result == null) super.request();
 
 		if (!"OK".equals(result.get("code"))) {

@@ -41,7 +41,7 @@ Unofficial Semantics3 Java API
 
 	import static semantics3.APIRequest.map;
 
-	categories.setField(map(
+	products.setField(map(
 		"cat_id", 4992,
 		"brand", "Toshiba",
 		"weight", map("gte", 1000000, "lt", 1500000),
@@ -56,3 +56,7 @@ Unofficial Semantics3 Java API
 
 
 	TODO : Offers
+
+#### TODO
+
+* return Navigable List for all results on products and categories

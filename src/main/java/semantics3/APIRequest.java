@@ -22,10 +22,36 @@ public abstract class APIRequest {
 
 	public abstract String getEndpoint();
 	protected Map<String, Object>	result	= null;
-	
+
+	public String getMessage() {
+		return (String) getResultAttribute("message");
+	}
+
+	public String getCode() {
+		return (String) getResultAttribute("code");
+	}
+
+	public int getTotalResultsCount() {
+		return (Integer) getResultAttribute("total_results_count");
+	}
+
+	public int getOffset() {
+		return (Integer) getResultAttribute("offset");
+	}
+
+	public int getResultsCount() {
+		return (Integer) getResultAttribute("results_count");
+	}
+
+	public Object getResultAttribute(String name) {
+		if (result == null) request();
+		return result.get(name);
+	}
+
 	public void request() {
 		try {
 			String raw = request(getEndpoint(), fields);
+			System.out.println(raw);
 			result = JSON_MAPPER.readValue(raw, Map.class);
 		} catch (Exception ex) {
 			throw new Semantics3Exception(ex);
@@ -35,16 +61,14 @@ public abstract class APIRequest {
 	/**
 	 * Use this for nested queries, see examples
 	 */
-	public void setField(Map map){
+	public void setField(Map map) {
 		fields.putAll(map);
 	}
-	
-	public void setField(String name, Object value) {		
-		this.fields.put(name, value);	
+
+	public void setField(String name, Object value) {
+		this.fields.put(name, value);
 	}
-	
-	
-	
+
 	public static Map map(Object... kvs) {
 		Map result = new HashMap();
 
@@ -62,8 +86,6 @@ public abstract class APIRequest {
 		}
 		return result;
 	}
-	
-	
 
 	public APIRequest(String api_key, String api_secret) {
 		if (api_key == null) throw new NullPointerException("API Key Missing");
@@ -103,7 +125,5 @@ public abstract class APIRequest {
 			throw new Semantics3Exception(ex);
 		}
 	}
-	
-	
 
 }
