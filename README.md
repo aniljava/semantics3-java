@@ -55,8 +55,9 @@ Unofficial Semantics3 Java API
 	));
 
 
-	TODO : Offers
+	
 
 #### TODO
 
 * return Navigable List for all results on products and categories
+* Offers
