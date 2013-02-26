@@ -32,15 +32,38 @@ public abstract class APIRequest {
 		}
 	}
 
-	public void setField(String name, Object... value) {
-		if (value == null) {
-			this.fields.put(name, null);
-		} else if (value.length == 1) {
-			this.fields.put(name, value[0]);
-		} else {
-			this.fields.put(name, value);
-		}
+	/**
+	 * Use this for nested queries, see examples
+	 */
+	public void setField(Map map){
+		fields.putAll(map);
 	}
+	
+	public void setField(String name, Object value) {		
+		this.fields.put(name, value);	
+	}
+	
+	
+	
+	public static Map map(Object... kvs) {
+		Map result = new HashMap();
+
+		Object key = null;
+		Object value = null;
+		for (Object obj : kvs) {
+			if (key == null) {
+				key = obj;
+			} else {
+				value = obj;
+				result.put(key, value);
+				key = null;
+				value = null;
+			}
+		}
+		return result;
+	}
+	
+	
 
 	public APIRequest(String api_key, String api_secret) {
 		if (api_key == null) throw new NullPointerException("API Key Missing");

@@ -12,3 +12,12 @@ Unofficial Semantics3 Java API
     for (Map<String, Object> product : products.getProducts()) {
     	System.out.println(product.get("name"));
     }
+
+
+## From semantics3-python
+
+    CategoriesRequest categories = new CategoriesRequest(key, secret);
+    categories.setField("cat_id", 4992);
+    for (Map category : categories.getCategories()) {
+    	System.out.println(category.get("name"));
+    }
